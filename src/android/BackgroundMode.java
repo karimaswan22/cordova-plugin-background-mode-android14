@@ -39,7 +39,6 @@ import static android.content.Context.BIND_AUTO_CREATE;
 import static de.appplant.cordova.plugin.background.BackgroundModeExt.clearKeyguardFlags;
 
 public class BackgroundMode extends CordovaPlugin {
- Log.e("heylogs", "START code");
 
 
 
