@@ -47,7 +47,7 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
  * when low on memory.
  */
 public class ForegroundService extends Service {
-   Log.e('appInBackground', "START code 5");
+   Log.e("appInBackground", "START code 5");
 
     // Fixed ID for the 'foreground' notification
     public static final int NOTIFICATION_ID = -574543954;
@@ -126,11 +126,11 @@ public class ForegroundService extends Service {
         if (!isSilent) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 startForeground(NOTIFICATION_ID, makeNotification(), 1073741824);
-                 Log.e('appInBackground', "START code tani");
+                 Log.e("appInBackground", "START code tani");
 
             } else {
                 startForeground(NOTIFICATION_ID, makeNotification());
-                                 Log.e('appInBackground', "START code 3awtani");
+                                 Log.e("appInBackground", "START code 3awtani");
 
             }
         }
