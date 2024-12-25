@@ -48,7 +48,7 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 public class ForegroundService extends Service {
 
     // Fixed ID for the 'foreground' notification
-    public static final int NOTIFICATION_ID = -574543954;
+    public static final int NOTIFICATION_ID = 1;
 
     // Default title of the background notification
     private static final String NOTIFICATION_TITLE =
@@ -179,7 +179,7 @@ public class ForegroundService extends Service {
         // The user-visible description of the channel.
         String description = "cordova-plugin-background-moden notification";
 
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_MAX;
 
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name,importance);
 
@@ -208,7 +208,7 @@ public class ForegroundService extends Service {
         }
 
         if (settings.optBoolean("hidden", true)) {
-            notification.setPriority(Notification.PRIORITY_MIN);
+            notification.setPriority(Notification.IMPORTANCE_MAX);
         }
 
         if (bigText || text.contains("\n")) {
