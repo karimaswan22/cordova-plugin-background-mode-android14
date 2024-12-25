@@ -208,7 +208,7 @@ public class ForegroundService extends Service {
         }
 
         if (settings.optBoolean("hidden", true)) {
-            notification.setPriority(Notification.IMPORTANCE_MAX);
+            notification.setPriority(Notification.PRIORITY_DEFAULT);
         }
 
         if (bigText || text.contains("\n")) {
