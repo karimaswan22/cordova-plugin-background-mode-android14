@@ -263,9 +263,9 @@ public class ForegroundService extends Service {
 
         int resId = getIconResId(icon, "drawable");
 
-        if (resId == 0) {
-            resId = getIconResId(icon, "drawable");
-        }
+  if (resId == 0) {
+    resId = android.R.drawable.ic_dialog_alert; // Use a system icon as fallback
+}
 
         return resId;
     }
