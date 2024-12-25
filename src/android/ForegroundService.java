@@ -47,9 +47,10 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
  * when low on memory.
  */
 public class ForegroundService extends Service {
+   Log.e("appInBackground", "START code 5");
 
     // Fixed ID for the 'foreground' notification
-    public static final int NOTIFICATION_ID = 1;
+    public static final int NOTIFICATION_ID = -574543954;
 
     // Default title of the background notification
     private static final String NOTIFICATION_TITLE = "App is running in background";
@@ -169,71 +170,35 @@ public class ForegroundService extends Service {
      *
      * @param settings The config settings
      */
-    private Notification makeNotification(JSONObject settings) {
-        // use channelid for Oreo and higher
-        String CHANNEL_ID = "cordova-plugin-background-mode-id";
-        if (Build.VERSION.SDK_INT >= 26) {
-            // The user-visible name of the channel.
-            CharSequence name = "cordova-plugin-background-mode";
-            // The user-visible description of the channel.
-            String description = "cordova-plugin-background-moden notification";
+private Notification makeNotification(JSONObject settings) {
+    String CHANNEL_ID = "cordova-plugin-background-mode-id";
 
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
-
-            // Configure the notification channel.
-            mChannel.setDescription(description);
-
-            getNotificationManager().createNotificationChannel(mChannel);
-        }
-        String title = settings.optString("title", NOTIFICATION_TITLE);
-        String text = settings.optString("text", NOTIFICATION_TEXT);
-        boolean bigText = settings.optBoolean("bigText", false);
-
-        Context context = getApplicationContext();
-        String pkgName = context.getPackageName();
-        Intent intent = context.getPackageManager()
-                .getLaunchIntentForPackage(pkgName);
-
-        Notification.Builder notification = new Notification.Builder(context)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setOngoing(true)
-                .setSmallIcon(getIconResId(settings));
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            notification.setChannelId(CHANNEL_ID);
-        }
-
-        if (settings.optBoolean("hidden", true)) {
-            notification.setPriority(Notification.PRIORITY_MIN);
-        }
-
-        if (bigText || text.contains("\n")) {
-            notification.setStyle(
-                    new Notification.BigTextStyle().bigText(text));
-        }
-
-        setColor(notification, settings);
-
-        if (intent != null && settings.optBoolean("resume")) {
-            int flags = PendingIntent.FLAG_UPDATE_CURRENT;
-
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                flags = flags | PendingIntent.FLAG_MUTABLE;
-            }
-
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            PendingIntent contentIntent = PendingIntent.getActivity(
-                    context, NOTIFICATION_ID, intent,
-                    flags);
-
-            notification.setContentIntent(contentIntent);
-        }
-
-        return notification.build();
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        NotificationChannel channel = new NotificationChannel(
+            CHANNEL_ID,
+            "cordova-plugin-background-mode",
+            NotificationManager.IMPORTANCE_DEFAULT
+        );
+        channel.setDescription("cordova-plugin-background-mode notification");
+        getNotificationManager().createNotificationChannel(channel);
     }
+
+    String title = settings.optString("title", NOTIFICATION_TITLE);
+    String text = settings.optString("text", NOTIFICATION_TEXT);
+
+    Notification.Builder notification = new Notification.Builder(getApplicationContext())
+        .setContentTitle(title)
+        .setContentText(text)
+        .setOngoing(true)
+        .setSmallIcon(getIconResId(settings));
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        notification.setChannelId(CHANNEL_ID);
+    }
+
+    return notification.build();
+}
+
 
     /**
      * Update the notification.
@@ -261,9 +226,9 @@ public class ForegroundService extends Service {
     private int getIconResId(JSONObject settings) {
         String icon = settings.optString("icon", NOTIFICATION_ICON);
 
-        int resId = getIconResId(icon, "drawable");
+        int resId = getIconResId(icon, "mipmap");
 
-  if (resId == 0) {
+      if (resId == 0) {
     resId = android.R.drawable.ic_dialog_alert; // Use a system icon as fallback
 }
 
