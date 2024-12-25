@@ -49,7 +49,7 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 public class ForegroundService extends Service {
 
     // Fixed ID for the 'foreground' notification
-    public static final int NOTIFICATION_ID = -574543954;
+    public static final int NOTIFICATION_ID = 1;
 
     // Default title of the background notification
     private static final String NOTIFICATION_TITLE = "App is running in background";
@@ -176,7 +176,7 @@ private Notification makeNotification(JSONObject settings) {
         NotificationChannel channel = new NotificationChannel(
             CHANNEL_ID,
             "cordova-plugin-background-mode",
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_MAX
         );
         channel.setDescription("cordova-plugin-background-mode notification");
         getNotificationManager().createNotificationChannel(channel);
