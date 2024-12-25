@@ -49,7 +49,7 @@ import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 public class ForegroundService extends Service {
 
     // Fixed ID for the 'foreground' notification
-    public static final int NOTIFICATION_ID = -574543954;
+    public static final int NOTIFICATION_ID = 1;
 
     // Default title of the background notification
     private static final String NOTIFICATION_TITLE = "App is running in background";
