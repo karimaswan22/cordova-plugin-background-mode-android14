@@ -261,7 +261,7 @@ public class ForegroundService extends Service {
     private int getIconResId(JSONObject settings) {
         String icon = settings.optString("icon", NOTIFICATION_ICON);
 
-        int resId = getIconResId(icon, "mipmap");
+        int resId = getIconResId(icon, "drawable");
 
         if (resId == 0) {
             resId = getIconResId(icon, "drawable");
